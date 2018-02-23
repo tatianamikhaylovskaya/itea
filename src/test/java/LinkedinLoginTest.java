@@ -46,8 +46,8 @@ public void successfullLoginTest() throws InterruptedException {
     WebElement signInButton = driver.findElement(By.id("login-submit"));
 
 
-    emailField.sendKeys("iteatest@i.ua");
-    paswordField.sendKeys("1q2w3e_4r");
+    emailField.sendKeys("taraschudnyy@gmail.com");
+    paswordField.sendKeys("Xelyfz!6");
     signInButton.click();
     sleep(5000);
         WebElement userIcon = driver.findElement(By.id("profile-nav-item"));
