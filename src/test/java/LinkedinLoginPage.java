@@ -11,14 +11,14 @@ public class LinkedinLoginPage {
     private WebElement emailField;
     private WebElement paswordField;
     private WebElement signInButton;
-    private  void ininElement(){
+    private  void initElement(){
         emailField = driver.findElement(By.xpath("//*[@id='login-email']"));
         paswordField = driver.findElement(By.xpath("//*[@id='login-password']"));
         signInButton = driver.findElement(By.id("login-submit"));
     }
 
     public void loginAs(String email, String password){
-        ininElement();
+        initElement();
         emailField.sendKeys(email);
         paswordField.sendKeys(password);
         signInButton.click();
