@@ -13,15 +13,14 @@ public class LinkedinLoginTest {
     WebDriver driver;
     @BeforeClass
     public  void beforeClass(){
-         driver = new FirefoxDriver();
-        driver.get("https://www.linkedin.com/");
 
     }
 
-    @AfterClass
+   @AfterClass
     public void afterClass(){
-        driver.close();
+
     }
+
     @BeforeMethod
     public  void beforeTest(){
         driver = new FirefoxDriver();
@@ -34,13 +33,29 @@ public class LinkedinLoginTest {
 
 
     @Test
-public void successfullLoginTest() throws InterruptedException {
+    public void successfullLoginTest() throws InterruptedException {
 
 
-    String initialPageTitle = driver.getTitle();
-    String initialPageURL = driver.getCurrentUrl();
+        LinkedinLoginPage loginPage = new LinkedinLoginPage(driver);
+
+
+    String initialPageTitle = loginPage.getPageTitle();
+    String initialPageURL = loginPage.getPageUrl();
+
     Assert.assertEquals(initialPageTitle, "LinkedIn: Log In or Sign Up", "login page title is wrong");
-    WebElement emailField = driver.findElement(By.xpath("//*[@id='login-email']"));
+
+    LinkedinBasePage homePage = loginPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
+
+    Assert.assertTrue(homePage.isSignedIn(), "User is not signed in");
+
+    Assert.assertNotEquals(homePage.getPageTitle(), initialPageTitle, "Page title did not change after login");
+        //Assert.assertTrue(driver.getTitle().equals(initialPageTitle), "Page title did not change after login");
+    Assert.assertNotEquals(homePage.getPageUrl(), initialPageURL, "Page URL did not change after login");
+
+
+
+
+   /* WebElement emailField = driver.findElement(By.xpath("//*[@id='login-email']"));
     //WebElement emailField = driver.findElement(By.id("login-email"));// такаяже строка как и верхняя
     WebElement paswordField = driver.findElement(By.xpath("//*[@id='login-password']"));
     WebElement signInButton = driver.findElement(By.id("login-submit"));
@@ -50,12 +65,9 @@ public void successfullLoginTest() throws InterruptedException {
     paswordField.sendKeys("Xelyfz!6");
     signInButton.click();
     sleep(5000);
-        WebElement userIcon = driver.findElement(By.id("profile-nav-item"));
+        WebElement userIcon = driver.findElement(By.id("profile-nav-item"));*/
+ // Assert.assertTrue(userIcon.isDisplayed(), "user icon was not displayed");
 
-        Assert.assertTrue(userIcon.isDisplayed(), "user icon was not displayed");
-        Assert.assertNotEquals(driver.getTitle(), initialPageTitle, "Page title did not change after login");
-        //Assert.assertTrue(driver.getTitle().equals(initialPageTitle), "Page title did not change after login");
-        Assert.assertNotEquals(driver.getCurrentUrl(), initialPageURL, "Page URL did not change after login");
 
 /*
         //sleep(5000);
