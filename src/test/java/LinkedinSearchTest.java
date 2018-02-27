@@ -29,22 +29,23 @@ public class LinkedinSearchTest {
     public void basicSearchTest() throws InterruptedException {
         LinkedinLoginPage loginPage = new LinkedinLoginPage(driver);
         loginPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
+        sleep(5000);
 
-
-        String searchTerm = "HR";
-        WebElement searchField = driver.findElement(By.xpath("//input[@placeholder='Поиск']"));
+        String searchTerm = "hr";
+        WebElement searchField = driver.findElement(By.xpath("//div[@class='nav-search-typeahead']//input"));
         WebElement searchButton = driver.findElement(By.xpath("//*[@type='search-icon']"));
         searchField.sendKeys(searchTerm);
         searchButton.click();
+        sleep(5000);
 
 
         List<WebElement> results = driver.findElements(By.xpath("//ul[@class='search-results__list list-style-none']/li[contains(@class,'search-result__occluded-item')]"));
         int currentResultNumber = results.size();
         Assert.assertEquals(results.size(),10,"Number of results is Wrong");
 
-        for (int i=1; i < results.size();i++) {
+         for (int i=0; i < results.size();i++) {
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",results.get(i));
-            String cardTitle = driver.findElement(By.xpath("//li[contains(@class,'search-result__occluded-item')]["+i+"]//span[contains(@class,'name actor-name')]")).toString();
+            String cardTitle = driver.findElement(By.xpath("//li[contains(@class,'search-result__occluded-item')]["+(i+1)+"]//p[contains(@class,'subline-level-1')]")).getText().toLowerCase();
             Assert.assertTrue(cardTitle.contains(searchTerm.toLowerCase()),"searchTerm  "+searchTerm+" not found in cart" + Integer.toString(i));
              System.out.println(cardTitle);
            // WebElement cardTitle = driver.findElement(By.xpath("//ul[@class='search-results__list list-style-none']/li[contains(@class,'search-result__occluded-item')]"));
@@ -59,9 +60,6 @@ public class LinkedinSearchTest {
 
            // WebElement webElement = driver.findElement(By.xpath("bla-bla"));
         //((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",webElement);
-
-
-
 
 
      /*   List<WebElement> searchResults = driver.findElements(By.xpath("/ul/li/div/div/div/p[@class='subline-level-1 Sans-15px-black-85% search-result__truncate']"));
