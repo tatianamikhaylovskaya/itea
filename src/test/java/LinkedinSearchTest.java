@@ -40,10 +40,20 @@ public class LinkedinSearchTest {
 
 
         List<WebElement> results = driver.findElements(By.xpath("//ul[@class='search-results__list list-style-none']/li[contains(@class,'search-result__occluded-item')]"));
-        int currentResultNumber = results.size();
+        //int currentResultNumber = results.size();
         Assert.assertEquals(results.size(),10,"Number of results is Wrong");
 
-         for (int i=0; i < results.size();i++) {
+        for (WebElement result : results){
+            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", result);
+            String cardTitle = result.getText();
+            System.out.println("XXXX");
+            System.out.println(cardTitle);
+            Assert.assertTrue(cardTitle.toLowerCase().contains(searchTerm), "searchTerm  \"+searchTerm+\" not found in cart");
+
+        }
+
+
+        /*for (int i=0; i < results.size();i++) {
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",results.get(i));
             String cardTitle = driver.findElement(By.xpath("//li[contains(@class,'search-result__occluded-item')]["+(i+1)+"]//p[contains(@class,'subline-level-1')]")).getText().toLowerCase();
             Assert.assertTrue(cardTitle.contains(searchTerm.toLowerCase()),"searchTerm  "+searchTerm+" not found in cart" + Integer.toString(i));
@@ -52,11 +62,11 @@ public class LinkedinSearchTest {
            // System.out.println(cardTitle.getText());
            // System.out.println(result.getAttribute("class"));
             }
-            List<WebElement> cardTitles = driver.findElements(By.xpath("//ul[@class='search-results__list list-style-none']/li[contains(@class,'search-result__occluded-item')]//span[contains(@class,'name actor-name')]"));
+           /* List<WebElement> cardTitles = driver.findElements(By.xpath("//ul[@class='search-results__list list-style-none']/li[contains(@class,'search-result__occluded-item')]//span[contains(@class,'name actor-name')]"));
             for (WebElement cardTitle: cardTitles){
                 cardTitle.getText();
                 System.out.println(cardTitle.getText());
-            }
+            }*/
 
            // WebElement webElement = driver.findElement(By.xpath("bla-bla"));
         //((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",webElement);
