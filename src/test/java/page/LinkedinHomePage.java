@@ -29,6 +29,7 @@ public class LinkedinHomePage extends LinkedinBasePage{
     }
 
     public LinkedInSearchPage searchByTerm(String searchTerm) {
+        waitUntilElementIsClickable(searchField);
         searchField.sendKeys(searchTerm);
         searchIcon.click();
         return new LinkedInSearchPage(driver);

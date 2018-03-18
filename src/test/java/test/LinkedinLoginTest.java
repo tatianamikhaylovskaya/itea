@@ -12,39 +12,16 @@ import page.LinkedinLandingPage;
 
 import static java.lang.Thread.sleep;
 
-public class LinkedinLoginTest {
-    WebDriver driver;
-    LinkedinLandingPage landingPage;
-    String initialPageTitle;
-    String initialPageUrl;
+public class LinkedinLoginTest extends LinkedinBaseTest{
 
-    @BeforeClass
-    public void beforeClass() {
 
-    }
 
-    @AfterClass
-    public void afterClass() {
-
-    }
-
-    @BeforeMethod
-    public void beforeTest() {
-        driver = new FirefoxDriver();
-        driver.get("https://www.linkedin.com/");
-        landingPage = new LinkedinLandingPage(driver);
-        initialPageTitle = landingPage.getPageTitle();
-        initialPageUrl = landingPage.getPageUrl();
-    }
-
-    @AfterMethod
-    public void afterTest() {
-        driver.close();
-    }
 
 
     @Test
     public void successfulLoginTest() {
+        String initialPageTitle = landingPage.getPageTitle();
+        String initialPageUrl = landingPage.getPageUrl();
 
         Assert.assertEquals(initialPageTitle, "LinkedIn: Log In or Sign Up",
                 "Login page title is wrong");
@@ -58,20 +35,68 @@ public class LinkedinLoginTest {
                 "Page url did not change after login");
     }
 
-    @Test
-    public void negativeLoginTest() {
+        @DataProvider
+        public Object[][] negativeTestCrdentialsReturnedToLanding() {
+        return new Object[][]{
+                {"", ""}};
 
+        }
+
+    @Test(dataProvider="negativeTestCrdentialsReturnedToLanding")
+    public void negativeLoginTestReturnedToLanding(String email, String password) {
+        String initialPageTitle = landingPage.getPageTitle();
+        String initialPageUrl = landingPage.getPageUrl();
 
         Assert.assertEquals(initialPageTitle, "LinkedIn: Log In or Sign Up",
                 "Login page title is wrong");
 
-        LinkedInLoginPage loginPage = landingPage.loginAs("taraschudnyy", "Xelyfz!6");
-        Assert.assertTrue(loginPage.isNotSignedIn(), "User is signed in");
+        //LinkedInLoginPage loginPage = landingPage.loginAs(email, password);
+        // Assert.assertTrue(loginPage.isNotSignedIn(), "User is signed in");
 
-        Assert.assertNotEquals(loginPage.getPageTitle(), initialPageTitle,
-                "Page title did not change after login");
-        Assert.assertNotEquals(loginPage.getPageUrl(), initialPageUrl,
-                "Page url did not change after login");
+        landingPage = landingPage.loginAs(email, password);
+        Assert.assertEquals(landingPage.getPageUrl(), initialPageUrl, "different page URL is loaded");
+    }
+
+
+    @DataProvider
+    public Object[][] negativeTestCrdentialsReturnedToLogin() {
+        return new Object[][]{
+                {"wwww", "rrr", "Укажите действительный адрес эл. почты.", "Пароль должен содержать не менее 6 символов."},
+                {"wwwwd", "rrrf", "Укажите действительный адрес эл. почты.", "Пароль должен содержать не менее 6 символов."}};
+
+    }
+
+        @Test(dataProvider="negativeTestCrdentialsReturnedToLogin")
+        public void negativeLoginTestReturnedToLogin (String email, String password,String emailErrorMessage, String passwordErrorMessage) {
+            String initialPageTitle = landingPage.getPageTitle();
+            String initialPageUrl = landingPage.getPageUrl();
+
+            Assert.assertEquals(initialPageTitle, "LinkedIn: Log In or Sign Up",
+                    "Login page title is wrong");
+
+            LinkedInLoginPage loginPage = landingPage.loginAs(email, password);
+            Assert.assertNotEquals(loginPage.getPageUrl(), initialPageUrl, "different page URL is loaded");
+
+            String actualEmailMessage = loginPage.getEmailError();
+            String actualPasswordMessage = loginPage.getPasswordError();
+
+            Assert.assertEquals(emailErrorMessage, actualEmailMessage, "Actual and Expected Email messages do not match");
+            Assert.assertEquals(passwordErrorMessage, actualPasswordMessage, "Actual and Expected Password messages do not match");
+
+
+
+
+
+            //LinkedInLoginPage loginPage = landingPage.loginAs(email, password);
+            // Assert.assertTrue(loginPage.isNotSignedIn(), "User is signed in");
+
+
+     //   Assert.assertTrue(loginPage.isNotSignedIn(), "User is signed in");
+
+     //   Assert.assertNotEquals(loginPage.getPageTitle(), initialPageTitle,
+                //"Page title did not change after login");
+       // Assert.assertNotEquals(loginPage.getPageUrl(), initialPageUrl,
+             //   "Page url did not change after login");
     }
 }
 

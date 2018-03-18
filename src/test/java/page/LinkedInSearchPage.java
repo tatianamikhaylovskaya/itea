@@ -9,12 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class LinkedInSearchPage extends LinkedinBasePage {
     @FindBy(xpath = "//li[contains(@class,'search-result__occluded-item')]")
     public List<WebElement> resultsWebElementList;
 
-    @FindBy (xpath = "//")
-    public WebElement resulsConteiner;
+    @FindBy (xpath = "//h3[contains(@class,'search-results__total')]")
+    public WebElement resultsNumber;
 
     public LinkedInSearchPage(WebDriver driver) {
         super(driver);
@@ -23,7 +25,7 @@ public class LinkedInSearchPage extends LinkedinBasePage {
 
 
     public List<String> getResults() {
-        waitUntilElementIsClickable(resultsWebElementList.get(0));
+        waitUntilElementIsVisible(resultsNumber,10);
         List<String> resulsStringList = new ArrayList();
         for (WebElement result : resultsWebElementList) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", result);

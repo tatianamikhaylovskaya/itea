@@ -12,27 +12,10 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class LinkedinSearchTest {
-    WebDriver driver;
-    LinkedinHomePage homePage;
-    LinkedinLandingPage landingPage;
-    LinkedInSearchPage searchPage;
-
-    @BeforeMethod
-    public  void beforeTest(){
-        driver = new FirefoxDriver();
-        driver.get("https://www.linkedin.com/");
-
-
-    }
-
-    @AfterMethod
-    public void afterTest(){
-        driver.close();
-    }
+public class LinkedinSearchTest extends LinkedinBaseTest{
 
     @Test
-    public void basicSearchTest()throws InterruptedException {
+    public void basicSearchTest() {
         String searchTerm = "hr";
         LinkedinLandingPage loginPage = new LinkedinLandingPage(driver);
         LinkedinHomePage homePage = loginPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
