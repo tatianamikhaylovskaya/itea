@@ -1,32 +1,32 @@
 package test;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import page.LinkedInLoginPage;
-import page.LinkedinBasePage;
 import page.LinkedinHomePage;
-import page.LinkedinLandingPage;
 
 import static java.lang.Thread.sleep;
 
 public class LinkedinLoginTest extends LinkedinBaseTest{
 
+    @DataProvider
+    public Object[][] successfulLoginTest() {
+        return new Object[][]{
+                {"taraschudnyy@gmail.com", "Xelyfz!6"},
+                {"TARASCHUDNYY@gmail.com", "Xelyfz!6"}};
 
+    }
 
-
-
-    @Test
-    public void successfulLoginTest() {
-        String initialPageTitle = landingPage.getPageTitle();
-        String initialPageUrl = landingPage.getPageUrl();
+    @Test (dataProvider ="successfulLoginTest")
+    public void successfulLoginTest(String email, String password){
+       String initialPageTitle = landingPage.getPageTitle();
+       String initialPageUrl = landingPage.getPageUrl();
 
         Assert.assertEquals(initialPageTitle, "LinkedIn: Log In or Sign Up",
                 "Login page title is wrong");
 
-        LinkedinHomePage homePage = landingPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
+        LinkedinHomePage homePage = landingPage.loginAs(email, password);
+       // LinkedinHomePage homePage = landingPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
         Assert.assertTrue(homePage.isSignedIn(), "User is not signed in");
 
         Assert.assertNotEquals(homePage.getPageTitle(), initialPageTitle,
@@ -36,13 +36,15 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
     }
 
         @DataProvider
-        public Object[][] negativeTestCrdentialsReturnedToLanding() {
+        public Object[][] negativeTestCredentialsReturnedToLanding() {
         return new Object[][]{
-                {"", ""}};
+                {"", ""},
+                {"taraschudnyy@gmail.com", ""},
+                {"", "Xelyfz!6"}};
 
         }
 
-    @Test(dataProvider="negativeTestCrdentialsReturnedToLanding")
+    @Test(dataProvider= "negativeTestCredentialsReturnedToLanding")
     public void negativeLoginTestReturnedToLanding(String email, String password) {
         String initialPageTitle = landingPage.getPageTitle();
         String initialPageUrl = landingPage.getPageUrl();
