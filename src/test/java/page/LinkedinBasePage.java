@@ -24,10 +24,6 @@ public class LinkedinBasePage {
             return driver.getCurrentUrl();
         }
 
-   /* public WebElement getPageAlert() {
-        return driver.findElement(By.id("global-alert-queue"));
-    }*/
-
 
     public void waitUntilElementIsClickable (WebElement webElement){
         waitUntilElementIsClickable(webElement, 10);

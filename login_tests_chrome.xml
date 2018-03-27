@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Login tests on Chrome browser" verbose="1" >
+
+    <test name="Chrome browser" >
+        <parameter name="browserType" value="chrome"/>
+        <parameter name="urlType" value="https://ua.linkedin.com/"/>
+        <classes>
+            <class name="test.LinkedinLoginTest" />
+        </classes>
+    </test>
+</suite>

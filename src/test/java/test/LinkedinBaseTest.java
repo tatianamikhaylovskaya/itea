@@ -23,18 +23,6 @@ public class LinkedinBaseTest {
     @Parameters({"browserType", "urlType"})
     @BeforeMethod
     public void beforeTest(@Optional("firefox") String browserType, @Optional("https://www.linkedin.com/") String urlType) {
-//        if (browserType.toLowerCase().equals("firefox") ) {
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
-//           }
-//
-//            if (browserType.toLowerCase().equals("chrome")) {
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-//      }
-//      else {
-//            System.out.println("Unsupported browser");
-//            }
 
         switch (browserType.toLowerCase()) {
             case "firefox":
@@ -48,13 +36,6 @@ public class LinkedinBaseTest {
             default:
                 System.out.println("Unsupported browser");
         }
-
-
-        //WebDriverManager.firefoxdriver().setup();;
-        // driver = new FirefoxDriver();
-
-        // WebDriverManager.chromedriver().setup();;
-        //driver = new ChromeDriver();
 
 
         driver.get(urlType);
