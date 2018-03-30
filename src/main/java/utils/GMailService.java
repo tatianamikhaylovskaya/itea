@@ -13,15 +13,15 @@ import java.util.concurrent.Executors;
 
 public class GMailService {
     String host = "imap.gmail.com";
-    String user = "Mykola.Gladchenko@gmail.com";
-    String pass = "your_pass_here";
+    String user = "chudnayatest@gmail.com";
+    String pass = "ChudnayaTest!6";
 
     private volatile boolean isMessageReceived = false;
     private volatile String messageString;
 
     public static void main(String[] args) {
         String messageSubjectPartial = "here's the link to reset your password";
-        String messageToPartial = "mykola.gladchenko@gmail.com";
+        String messageToPartial = "chudnayatest@gmail.com";
         String messageFromPartial = "security-noreply@linkedin.com";
 
         GMailService GMailService = new GMailService();

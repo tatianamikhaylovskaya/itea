@@ -14,6 +14,9 @@ import static java.lang.Thread.sleep;
 
 public class LinkedinSearchTest extends LinkedinBaseTest{
 
+    /**
+     * Test that verifies basic Search by Specific Search term
+     */
     @Test
     public void basicSearchTest() {
         String searchTerm = "hr";

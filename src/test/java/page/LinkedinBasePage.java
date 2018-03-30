@@ -1,14 +1,12 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LinkedinBasePage {
+public abstract class LinkedinBasePage {
         WebDriver driver;
 
         public LinkedinBasePage(WebDriver driver){
@@ -25,13 +23,22 @@ public class LinkedinBasePage {
         }
 
 
-    public void waitUntilElementIsClickable (WebElement webElement){
-        waitUntilElementIsClickable(webElement, 10);
+    public WebElement waitUntilElementIsClickable (WebElement webElement){
+
+            waitUntilElementIsClickable(webElement, 10);
+            return webElement;
     }
 
-    public void waitUntilElementIsClickable (WebElement webElement, int timeOutInSeconds){
+    /**
+     * Wait until WebElement is Clickable on Web page
+     * @param webElement - WebElement to wait for
+     * @param timeOutInSeconds -
+     * @return - WebElement after wait
+     */
+    public WebElement waitUntilElementIsClickable (WebElement webElement, int timeOutInSeconds){
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        return webElement;
     }
 
     public void waitUntilElementIsVisible (WebElement webElement){

@@ -12,8 +12,8 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
     @DataProvider
     public Object[][] successfulLoginTest() {
         return new Object[][]{
-                {"taraschudnyy@gmail.com", "Xelyfz!6"},
-                {"TARASCHUDNYY@gmail.com", "Xelyfz!6"}};
+                {"chudnayatest@gmail.com", "Xelyfz!6"},
+                {"CHUDNAYATEST@gmail.com", "Xelyfz!6"}};
 
     }
 
@@ -39,7 +39,7 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
         public Object[][] negativeTestCredentialsReturnedToLanding() {
         return new Object[][]{
                 {"", ""},
-                {"taraschudnyy@gmail.com", ""},
+                {"chudnayatest@gmail.com", ""},
                 {"", "Xelyfz!6"}};
 
         }

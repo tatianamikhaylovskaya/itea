@@ -29,4 +29,6 @@ public class LinkedinPasswordResetSubmitPage extends LinkedinBasePage{
         return isLoaded;
     }
 
+    public LinkedinChooseNewPasswordPage
+
 }
