@@ -16,6 +16,7 @@ public class LinkedinLandingPage extends LinkedinBasePage {
         PageFactory.initElements(driver, this);
     }
 
+
     @FindBy (id = "login-email")
     private WebElement emailField;
     @FindBy (id = "login-password")

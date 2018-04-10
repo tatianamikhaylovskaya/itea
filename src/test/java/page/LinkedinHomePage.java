@@ -18,6 +18,9 @@ public class LinkedinHomePage extends LinkedinBasePage{
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     *
+     */
     @FindBy(id = "profile-nav-item")
     private WebElement userIcon;
 

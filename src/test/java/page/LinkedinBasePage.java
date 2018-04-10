@@ -57,7 +57,7 @@ public abstract class LinkedinBasePage {
     /**
      * Wait until WebElement is Clickable on Web page
      * @param webElement - WebElement to wait for
-     * @param timeOutInSeconds -
+     * @param timeOutInSeconds - The time that the system will wait for the  WebElement
      * @return - WebElement after wait
      */
     public WebElement waitUntilElementIsClickable (WebElement webElement, int timeOutInSeconds){
