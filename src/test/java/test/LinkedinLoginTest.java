@@ -17,6 +17,11 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
 
     }
 
+    /**
+     * Verifies that user logged in successfully if valid email and password are entered
+     * @return the Home page
+     */
+
     @Test (dataProvider ="successfulLoginTest")
     public void successfulLoginTest(String email, String password){
        String initialPageTitle = landingPage.getPageTitle();
@@ -26,7 +31,7 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
                 "Login page title is wrong");
 
         LinkedinHomePage homePage = landingPage.loginAs(email, password);
-       // LinkedinHomePage homePage = landingPage.loginAs("taraschudnyy@gmail.com", "Xelyfz!6");
+
         Assert.assertTrue(homePage.isSignedIn(), "User is not signed in");
 
         Assert.assertNotEquals(homePage.getPageTitle(), initialPageTitle,
@@ -43,6 +48,11 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
                 {"", "Xelyfz!6"}};
 
         }
+
+    /**
+     * Verifies that if at least one field is empty while log in - user stays on the same page
+     * @return the same page, Landing page
+     */
 
     @Test(dataProvider= "negativeTestCredentialsReturnedToLanding")
     public void negativeLoginTestReturnedToLanding(String email, String password) {
@@ -67,6 +77,11 @@ public class LinkedinLoginTest extends LinkedinBaseTest{
                 {"wwwwd", "rrrf", "Укажите действительный адрес эл. почты.", "Пароль должен содержать не менее 6 символов."}};
 
     }
+
+    /**
+     * Verifies that user redirected to the Login page and Error message is shown if invalid email and password are entered
+     * @return Login page
+     */
 
         @Test(dataProvider="negativeTestCrdentialsReturnedToLogin")
         public void negativeLoginTestReturnedToLogin (String email, String password,String emailErrorMessage, String passwordErrorMessage) {

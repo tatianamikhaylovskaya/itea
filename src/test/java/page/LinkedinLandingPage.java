@@ -6,7 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LinkedinLandingPage extends LinkedinBasePage {
-
+    /**
+     *Constructor of LinkedinLandingPage class that takes WebDriver instance from LinkedinBasePage class and
+     *initialise LinkedinHomePage WebElements via PageFactory.
+     *@param driver- WebDriver instance that was initialised LinkedinBasePage class
+     */
     public LinkedinLandingPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -21,11 +25,24 @@ public class LinkedinLandingPage extends LinkedinBasePage {
     @FindBy (xpath="//a[@class='link-forgote-password']")
     private WebElement forgotPasswordLink;
 
+    /**
+     * Start reset password process by clicking Forgot password link
+     * @return  page to start changing password flow
+     */
+
     public LinkedinRequestPasswordResetPage forgotPasswordLinkClick ()
     { forgotPasswordLink.click();
     return  new LinkedinRequestPasswordResetPage(driver);
 
     }
+
+    /**
+     * Login to the system by entering email and password and clicking on signIn Button;
+     * @param email - email is used for login
+     * @param password - password is used for login
+     * @param <T> - type of the used parameters, that returns appropriate page object
+     * @return  new page depends on used params
+     */
     public <T> T loginAs(String email, String password) {
         waitUntilElementIsClickable(emailField, 5);
         emailField.sendKeys(email);

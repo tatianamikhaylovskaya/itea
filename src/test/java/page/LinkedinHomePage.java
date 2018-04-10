@@ -7,6 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LinkedinHomePage extends LinkedinBasePage{
 
+    /**
+     *Constructor of LinkedinHomePage class that takes WebDriver instance from LinkedinBasePage class and
+     *initialise LinkedinHomePage WebElements via PageFactory.
+     *@param driver- WebDriver instance that was initialised LinkedinBasePage class
+     */
+
     public LinkedinHomePage(WebDriver driver){
         super(driver);
         PageFactory.initElements(driver, this);
@@ -23,10 +29,21 @@ public class LinkedinHomePage extends LinkedinBasePage{
 
     public String searchTerm = "hr";
 
+    /**
+     * check if user successfully logged in successfully by checking appearence of the User Icon  Web Element
+     * @return true if User Icon appears on the web page
+     */
+
     public boolean isSignedIn(){
         waitUntilElementIsClickable(userIcon);
         return userIcon.isDisplayed();
     }
+
+    /**
+     * Search data for entered specific search term
+     * @param searchTerm - searching text
+     * @return page with search results
+     */
 
     public LinkedInSearchPage searchByTerm(String searchTerm) {
         waitUntilElementIsClickable(searchField);

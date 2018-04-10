@@ -14,27 +14,28 @@ public class LinkedinPasswordResetTest extends LinkedinBaseTest{
     String userEmail = "chudnayatest@gmail.com";
     String newPassword = "Stanislav123";
 
+
+
     @Test
-    public void successfulPasswordReset() {
+
+    /**
+     * Verifies reset password process
+     */
+    public void successfulPasswordResetTest() {
         LinkedinRequestPasswordResetPage requestPasswordResetPage = landingPage.forgotPasswordLinkClick();
-        Assert.assertTrue(requestPasswordResetPage.isLoaded(), "requestPasswordResetPage is not loaded");
-        GMailService GMailService = new GMailService();
-        LinkedinPasswordResetSubmitPage passwordResetSubmitPage = requestPasswordResetPage.submitEmail(userEmail);
-        //Manually selected "email" option and "Submit" button. Need to automate.
-        //Assert.assertTrue(passwordResetSubmitPage.isLoaded(), "passwordResetSubmitPage is not loaded");
+        Assert.assertTrue (requestPasswordResetPage.isLoaded(),
+                "requestPasswordResetPage is not loaded");
 
-        //read email
-        String messageSubjectPartial = "here's the link to reset your password";
-        String messageToPartial = "chudnayatest@gmail.com";
-        String messageFromPartial = "security-noreply@linkedin.com";
-        String message = GMailService.waitForNewMessage(messageSubjectPartial, messageToPartial, messageFromPartial, 60);
-        System.out.println("Content: " + message);
+        LinkedinPasswordResetSubmitPage requestPasswordSubmitPage = requestPasswordResetPage.submitEmail(userEmail);
+        String resetPasswordLink = requestPasswordSubmitPage.getResetPasswordLinkFromEmail(userEmail);
+        Assert.assertTrue(requestPasswordSubmitPage.isLoaded(), "Page isn't loaded");
 
-        String resetPasswordLink = StringUtils.substringBetween(message, "browser:", "This link").trim();
-        LinkedinChooseNewPasswordPage chooseNewPasswordPage = passwordResetSubmitPage.navigateToResetPasswordLink(resetPasswordLink);
-        LinkedInResetPasswordSuccessPage resetPasswordSuccessPage = chooseNewPasswordPage.submitNewPassword(newPassword);
+        LinkedinChooseNewPasswordPage createNewPasswordPage = requestPasswordSubmitPage.navigateToResetPasswordLink(resetPasswordLink);
+        Assert.assertTrue(createNewPasswordPage.isLoaded(), "Page isn't loaded");
 
-        //proceed with next steps here
-
+        LinkedInResetPasswordSuccessPage passwordChangedPage = createNewPasswordPage.resetPassword(newPassword);
+        Assert.assertTrue(passwordChangedPage.isLoaded(), "Page isn't loaded");
     }
+
+
 }

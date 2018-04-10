@@ -18,10 +18,21 @@ public class LinkedInSearchPage extends LinkedinBasePage {
     @FindBy (xpath = "//h3[contains(@class,'search-results__total')]")
     public WebElement resultsNumber;
 
+    /**
+     *Constructor of LinkedInSearchPage class that takes WebDriver instance from LinkedinBasePage class and
+     *initialise LinkedinHomePage WebElements via PageFactory.
+     *@param driver- WebDriver instance that was initialised LinkedinBasePage class
+     */
+
     public LinkedInSearchPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
+
+    /**
+     * Create list of search results: scroll all search results and addes each card title to the search results list
+     * @return the list of search results
+     */
 
 
     public List<String> getResults() {
@@ -31,8 +42,6 @@ public class LinkedInSearchPage extends LinkedinBasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", result);
             String cardTitle = result.getText();
             resulsStringList.add(cardTitle);
-            //System.out.println("XXXX");
-            //System.out.println(cardTitle);
 
         }
         return resulsStringList;

@@ -19,6 +19,12 @@ public class LinkedinBaseTest {
     LinkedinLandingPage landingPage;
     LinkedInSearchPage searchPage;
 
+    /**
+     * Switch for using different browsers (Chrome, Firefox)
+     * @param browserType browser to be used for tests runs in TestNG xml
+     * @param urlType  url to start test page
+     */
+
 
     @Parameters({"browserType", "urlType"})
     @BeforeMethod
@@ -42,6 +48,10 @@ public class LinkedinBaseTest {
         landingPage = new LinkedinLandingPage(driver);
 
     }
+
+    /**
+     * closes browser page after test finished
+     */
 
     @AfterMethod
     public void afterTest() {

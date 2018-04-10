@@ -34,6 +34,31 @@ public class LinkedinSearchTest extends LinkedinBaseTest{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*for (int i=0; i < results.size();i++) {
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",results.get(i));
             String cardTitle = driver.findElement(By.xpath("//li[contains(@class,'search-result__occluded-item')]["+(i+1)+"]//p[contains(@class,'subline-level-1')]")).getText().toLowerCase();
